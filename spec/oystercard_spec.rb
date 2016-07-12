@@ -14,5 +14,8 @@ describe Oystercard do
     it 'can top up the balance' do
       expect{subject.top_up 1}.to change {subject.balance}.by 1
     end
+
+  
+
   end
 end
