@@ -24,10 +24,18 @@ describe Oystercard do
         expect{subject.deduct(2)}.to change {subject.balance}.by -2
       end
     end
+
     describe 'touch_in' do
-       it 'allows a user to touch_in' do
+       it 'sets in journey to true' do
          # set instance variable here
-         expect(subject.touch_in).to eq(true)
+         expect(subject.touch_in).to eq true
       end
     end
+
+    describe 'touch_out' do
+      it 'allows a user to touch out' do
+        expect(subject.touch_out).to eq false
+      end
+    end
+
 end
