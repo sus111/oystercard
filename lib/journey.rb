@@ -20,7 +20,8 @@ MIN_FARE = 1
   end
 
   def fare
-    @fare = MIN_FARE if self.complete?
+     @fare = MIN_FARE if self.complete?
+     @fare
   end
 
 end
