@@ -20,6 +20,10 @@ class OysterCard
     @balance += amount
   end
 
+  def in_journey?
+    !@journey.empty?
+  end
+
   def touch_in(entry_station)
     fail "Your balance £#{balance} does not meet min fare" if balance < MIN_FARE
     @new_journey = Journey.new(entry_station)
