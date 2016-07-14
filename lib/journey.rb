@@ -7,11 +7,10 @@ MIN_FARE = 1
 
   def initialize(entry_station)
     @entry_station = entry_station
-    @exit_station = nil
     @fare = PENALTY_FARE
   end
 
-  def finish(exit_station)
+  def finish(exit_station = nil)
     @exit_station = exit_station
   end
 
