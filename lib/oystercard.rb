@@ -1,3 +1,6 @@
+require_relative 'station'
+require_relative 'journey'
+
 class OysterCard
 
   MAX_LIMIT = 90
@@ -17,24 +20,24 @@ class OysterCard
     @balance += amount
   end
 
-  def in_journey?
-    !@journey.empty?
-  end
-
   def touch_in(entry_station)
     fail "Your balance £#{balance} does not meet min fare" if balance < MIN_FARE
+    @new_journey = Journey.new(entry_station)
     @journey[:entry_station] = entry_station
   end
 
   def touch_out(exit_station)
-    deduct(MIN_FARE)
+    @new_journey = Journey.new if @new_journey.nil?
+    @new_journey.finish(exit_station)
+    deduct(@new_journey.fare)
+    @new_journey = nil
     @journey[:exit_station] = exit_station
     @journey_history << @journey
     @journey = {}
   end
 
   def get_history
-    @journeys
+    @journey_history
   end
 
 private
