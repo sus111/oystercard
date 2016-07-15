@@ -7,6 +7,7 @@ describe OysterCard do
   let(:exit_station) { double :exit_station }
   let(:journey){ {:entry_station => entry_station, :exit_station => exit_station} }
 
+
   describe '#initialize' do
 
     it 'has an initial balance of 0' do
@@ -41,15 +42,5 @@ describe OysterCard do
    end
 
  end
-
-describe 'get_history' do
-
- it 'returns journey history' do
-   subject.touch_out(exit_station)
-   expect(subject.journey_history).to include journey
-
- end
-
-end
 
 end

@@ -1,5 +1,5 @@
 require_relative 'station'
-require_relative 'journey'
+require_relative 'journey_log'
 
 class OysterCard
 
@@ -10,9 +10,7 @@ class OysterCard
 
   def initialize
     @balance = 0
-    @journey_history = []
-    @journey = {}
-
+    @log = JourneyLog.new
   end
 
   def top_up(amount)
@@ -26,22 +24,17 @@ class OysterCard
 
   def touch_in(entry_station)
     fail "Your balance £#{balance} does not meet min fare" if balance < MIN_FARE
-    @new_journey = Journey.new(entry_station)
-    @journey[:entry_station] = entry_station
+    deduct(@log.touch_in_check)
+    @log.start(entry_station)
   end
 
   def touch_out(exit_station)
-    @new_journey = Journey.new if @new_journey.nil?
-    @new_journey.finish(exit_station)
-    deduct(@new_journey.fare)
-    @new_journey = nil
-    @journey[:exit_station] = exit_station
-    @journey_history << @journey
-    @journey = {}
+    @log.finish(exit_station)
+    deduct(@log.fare)
   end
 
   def get_history
-    @journey_history
+    @log.history
   end
 
 private
